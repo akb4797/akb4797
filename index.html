@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Engineering & Leadership Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        header .tagline {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--bg-white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 15px 0;
+        }
+
+        nav li {
+            margin: 0 20px;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+            background-color: var(--bg-white);
+            margin-bottom: 2px;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--bg-light);
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        /* Executive Summary */
+        .summary-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* Expertise Grid */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .expertise-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .expertise-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .expertise-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Experience Timeline */
+        .experience-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+        }
+
+        .experience-item {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 3px solid var(--bg-white);
+            box-shadow: 0 0 0 3px var(--primary-color);
+        }
+
+        .experience-item h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .experience-item .company {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-item li {
+            padding-left: 25px;
+            margin-bottom: 10px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .experience-item li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .project-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        /* Education */
+        .education-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .education-item {
+            background: var(--bg-white);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .education-item h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .education-item .institution {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 0;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header .subtitle {
+                font-size: 1.2rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 10px 0;
+            }
+
+            .expertise-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-timeline {
+                padding-left: 30px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="fade-in">AI Engineering & Leadership</h1>
+            <p class="subtitle fade-in">Senior AI Engineering Lead | Squad Leader</p>
+            <p class="tagline fade-in">
+                Bridging the gap between theoretical research and enterprise-scale implementation in 
+                <strong>Generative AI</strong>, <strong>Agentic Workflows</strong>, and <strong>Cloud-Native AI Infrastructure</strong>
+            </p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#summary">Summary</a></li>
+            <li><a href="#expertise">Expertise</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+        </ul>
+    </nav>
+
+    <section id="summary">
+        <div class="container">
+            <h2>Executive Summary</h2>
+            <div class="summary-content">
+                <p>
+                    A Senior AI Engineering Lead and Squad Leader with a proven track record of architecting and 
+                    deploying high-impact AI solutions. With over <strong>nine years of experience</strong>, my expertise 
+                    lies in bridging the gap between theoretical research and enterprise-scale implementation, 
+                    specifically within the realms of <strong>Agentic Workflows</strong>, <strong>Large Language Models (LLMs)</strong>, 
+                    and <strong>Cloud-Native AI Infrastructure</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="expertise">
+        <div class="container">
+            <h2>Core Expertise</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>🤖 Generative AI & LLMOps</h3>
+                    <p>
+                        Advanced implementation of Retrieval-Augmented Generation (RAG), fine-tuning LLMs 
+                        (e.g., Llama 3), and optimizing inference using techniques like KV caching and 
+                        SwiGLU architectures.
+                    </p>
+                </div>
+                <div class="expertise-card">
+                    <h3>🔄 Agentic Frameworks</h3>
+                    <p>
+                        Designing autonomous AI agents using LangGraph and Model Context Protocol (MCP) 
+                        to automate complex DevOps and administrative workflows.
+                    </p>
+                </div>
+                <div class="expertise-card">
+                    <h3>👁️ Computer Vision & Edge AI</h3>
+                    <p>
+                        Significant experience in deep learning for background removal, object detection, 
+                        and Automated License Plate Recognition (ALPR) optimized for edge devices.
+                    </p>
+                </div>
+                <div class="expertise-card">
+                    <h3>☁️ Full-Stack & Cloud Architecture</h3>
+                    <p>
+                        Proficient in building robust backends with Python (FastAPI, C++) and deploying 
+                        via Kubernetes (EKS), AWS Bedrock, and Fargate.
+                    </p>
+                </div>
+                <div class="expertise-card">
+                    <h3>👥 Strategic Leadership</h3>
+                    <p>
+                        Leading cross-functional squads to deliver AI products for global BFSI 
+                        (Banking, Financial Services, and Insurance) and supply chain clients.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2>Professional Experience & Leadership</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <h3>AI Squad Leader</h3>
+                    <p class="company">IBM | Current</p>
+                    <ul>
+                        <li>Spearheading a specialized squad of engineers focused on the development and deployment of <strong>Agentic AI solutions</strong></li>
+                        <li>Architecting agentic platforms designed to streamline customer care and automate complex database/DevOps workflows</li>
+                        <li>Managing the end-to-end lifecycle of AI products, from initial proof-of-concept to global enterprise deployment</li>
+                        <li>Leading cross-functional teams to deliver AI solutions for BFSI and supply chain clients worldwide</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <h3>Technical Lead</h3>
+                    <p class="company">Sony India Software Centre | 7 Years</p>
+                    <ul>
+                        <li>Drove innovation in computer vision and edge-based machine learning for seven years</li>
+                        <li>Developed high-performance deep learning models for real-time image processing</li>
+                        <li>Led the technical execution of computer vision projects, ensuring high accuracy and low-latency performance on constrained hardware</li>
+                        <li>Specialized in background removal, object detection, and ALPR systems optimized for edge devices</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>Key Projects & Technical Achievements</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Asset builder</h3>
+                    <p>
+                        A flagship product focused on sophisticated asset management 
+                        and generation, leveraging cutting-edge AI technologies for enterprise-scale deployment.
+                    </p>
+                    <span class="project-badge">Agentic AI Platform</span>
+                </div>
+                <div class="project-card">
+                    <h3>Automated MongoDB Admin</h3>
+                    <p>
+                        Created an agentic solution utilizing LangGraph and MCP server tool integrations 
+                        to automate complex database administration tasks, reducing manual intervention by 80%.
+                    </p>
+                    <span class="project-badge">Agentic AI</span>
+                </div>
+                <div class="project-card">
+                    <h3>Supply Chain Chatbot</h3>
+                    <p>
+                        Architected a microservices-based chatbot featuring clickstream analytics and 
+                        Kafka integration to provide real-time supply chain insights for global clients.
+                    </p>
+                    <span class="project-badge">Microservices</span>
+                </div>
+                <div class="project-card">
+                    <h3>Multi-Threaded Inference Engines</h3>
+                    <p>
+                        Developed high-concurrency systems using C++ and Python to maximize throughput 
+                        for large-scale AI deployments, achieving 3x performance improvement.
+                    </p>
+                    <span class="project-badge">High Performance</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <h2>Education & Certifications</h2>
+            <div class="education-list">
+                <div class="education-item">
+                    <h3>M.Tech in Embedded Systems</h3>
+                    <p class="institution">Amrita Viswa Vidyapeetham</p>
+                </div>
+                <div class="education-item">
+                    <h3>B.Tech in Electronics and Communication</h3>
+                    <p class="institution">Rajagiri School of Engineering & Technology</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AI Engineering & Leadership Portfolio. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                Specializing in Generative AI, Agentic Systems, and Enterprise AI Solutions
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.expertise-card, .project-card, .education-item, .experience-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
