@@ -5,73 +5,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aravind Krishnan B - AI Solution Architect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #3b82f6;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --bg-light: #f9fafb;
-            --bg-white: #ffffff;
-            --border-color: #e5e7eb;
+            --cyan: #00e5ff;
+            --purple: #7c3aed;
+            --neon-glow: rgba(0, 229, 255, .4);
+            --glass-bg: rgba(255, 255, 255, .04);
+            --glass-border: rgba(255, 255, 255, .1);
+            --glass-hover: rgba(255, 255, 255, .08);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --bg-deep: #050918;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background-color: var(--bg-light);
+            background: var(--bg-deep);
+            overflow-x: hidden
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, .15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0, 229, 255, .1) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(59, 130, 246, .05) 0%, transparent 70%);
+            animation: bgPulse 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                opacity: .7;
+                transform: scale(1)
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.05)
+            }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1
         }
 
-        /* Header */
+        /* HEADER */
         header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 80px 0;
+            position: relative;
+            padding: 100px 0 80px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent)
         }
 
         header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
             font-weight: 700;
+            background: linear-gradient(135deg, #fff 30%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px
         }
 
         header .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            opacity: 0.95;
+            font-size: 1.3rem;
+            color: var(--cyan);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            opacity: .9
         }
 
         header .tagline {
-            font-size: 1.1rem;
-            max-width: 800px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 760px;
             margin: 0 auto;
-            opacity: 0.9;
-            line-height: 1.8;
+            line-height: 1.9
         }
 
-        /* Navigation */
+        header .tagline a {
+            color: var(--cyan);
+            text-decoration: none
+        }
+
+        header .tagline a:hover {
+            text-decoration: underline
+        }
+
+        header .tagline strong {
+            color: var(--text-primary)
+        }
+
+        /* NAV */
         nav {
-            background-color: var(--bg-white);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
+            background: rgba(5, 9, 24, .75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border)
         }
 
         nav ul {
@@ -79,43 +146,48 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            padding: 15px 0;
-        }
-
-        nav li {
-            margin: 0 20px;
+            padding: 14px 0;
+            gap: 4px
         }
 
         nav a {
-            color: var(--text-primary);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-            padding: 5px 10px;
+            font-weight: 500;
+            font-size: .9rem;
+            letter-spacing: .5px;
+            padding: 7px 18px;
+            border-radius: 30px;
+            transition: all .3s;
+            border: 1px solid transparent
         }
 
         nav a:hover {
-            color: var(--primary-color);
+            color: var(--cyan);
+            border-color: rgba(0, 229, 255, .3);
+            background: rgba(0, 229, 255, .06);
+            box-shadow: 0 0 12px rgba(0, 229, 255, .15)
         }
 
-        /* Sections */
+        /* SECTIONS */
         section {
-            padding: 60px 0;
-            background-color: var(--bg-white);
-            margin-bottom: 2px;
-        }
-
-        section:nth-child(even) {
-            background-color: var(--bg-light);
+            padding: 80px 0;
+            position: relative;
+            z-index: 1
         }
 
         section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 600;
             text-align: center;
-            color: var(--primary-color);
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #fff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 18px
         }
 
         section h2::after {
@@ -124,61 +196,88 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple), var(--cyan));
             border-radius: 2px;
+            box-shadow: 0 0 10px var(--neon-glow)
         }
 
-        /* Executive Summary */
+        /* SUMMARY */
         .summary-content {
-            max-width: 900px;
+            max-width: 860px;
             margin: 0 auto;
-            font-size: 1.15rem;
-            line-height: 1.9;
+            font-size: 1.1rem;
+            line-height: 1.95;
             color: var(--text-secondary);
             text-align: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 40px
         }
 
-        /* Expertise Grid */
+        .summary-content strong {
+            color: var(--cyan)
+        }
+
+        /* EXPERTISE */
         .expertise-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 24px;
+            margin-top: 40px
         }
 
         .expertise-card {
-            background: var(--bg-white);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-left: 4px solid var(--primary-color);
+            border-left: 3px solid var(--cyan);
+            transition: all .35s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            overflow: hidden
+        }
+
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, .4), transparent)
         }
 
         .expertise-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+            background: var(--glass-hover);
+            border-left-color: var(--purple);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, .5), 0 0 24px rgba(124, 58, 237, .15)
         }
 
         .expertise-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+            color: var(--cyan);
+            margin-bottom: 14px;
+            font-size: 1.1rem;
+            font-weight: 600
         }
 
         .expertise-card p {
             color: var(--text-secondary);
-            line-height: 1.7;
+            line-height: 1.75;
+            font-size: .95rem
         }
 
-        /* Experience Timeline */
+        /* TIMELINE */
         .experience-timeline {
-            max-width: 900px;
+            max-width: 860px;
             margin: 0 auto;
             position: relative;
-            padding-left: 40px;
+            padding-left: 44px
         }
 
         .experience-timeline::before {
@@ -187,192 +286,277 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+            width: 2px;
+            background: linear-gradient(180deg, var(--purple), var(--cyan), transparent)
         }
 
         .experience-item {
-            margin-bottom: 50px;
+            margin-bottom: 55px;
             position: relative;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 28px 30px;
+            transition: all .3s
+        }
+
+        .experience-item:hover {
+            background: var(--glass-hover);
+            border-color: rgba(0, 229, 255, .25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .4)
         }
 
         .experience-item::before {
             content: '';
             position: absolute;
-            left: -46px;
-            top: 5px;
-            width: 15px;
-            height: 15px;
+            left: -51px;
+            top: 28px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: var(--primary-color);
-            border: 3px solid var(--bg-white);
-            box-shadow: 0 0 0 3px var(--primary-color);
+            background: var(--cyan);
+            box-shadow: 0 0 12px var(--neon-glow);
+            border: 2px solid var(--bg-deep)
         }
 
         .experience-item h3 {
-            color: var(--primary-color);
-            font-size: 1.6rem;
-            margin-bottom: 5px;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 6px
         }
 
         .experience-item .company {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--cyan);
+            font-weight: 500;
+            margin-bottom: 18px;
+            opacity: .85
         }
 
         .experience-item ul {
             list-style: none;
-            padding-left: 0;
+            padding-left: 0
         }
 
         .experience-item li {
-            padding-left: 25px;
+            padding-left: 22px;
             margin-bottom: 10px;
             position: relative;
             color: var(--text-secondary);
+            font-size: .95rem;
+            line-height: 1.75
         }
 
         .experience-item li::before {
             content: '▹';
             position: absolute;
             left: 0;
-            color: var(--primary-color);
-            font-weight: bold;
+            color: var(--cyan)
         }
 
-        /* Projects Grid */
+        .experience-item li strong {
+            color: var(--text-primary)
+        }
+
+        /* PROJECTS */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 24px;
+            margin-top: 40px
         }
 
         .project-card {
-            background: var(--bg-white);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 4px solid var(--accent-color);
+            border-top: 2px solid var(--purple);
+            display: flex;
+            flex-direction: column;
+            transition: all .35s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            overflow: hidden
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(124, 58, 237, .08), transparent 60%);
+            pointer-events: none
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+            background: var(--glass-hover);
+            border-top-color: var(--cyan);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, .5), 0 0 20px rgba(0, 229, 255, .1)
         }
 
         .project-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600
         }
 
         .project-card p {
             color: var(--text-secondary);
-            line-height: 1.7;
+            line-height: 1.75;
+            flex: 1;
+            font-size: .95rem
         }
 
         .project-badge {
             display: inline-block;
-            background: var(--accent-color);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-top: 10px;
+            background: rgba(0, 229, 255, .1);
+            color: var(--cyan);
+            border: 1px solid rgba(0, 229, 255, .3);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: .8rem;
+            font-weight: 500;
+            margin-top: 14px
         }
 
-        /* Education */
+        a.project-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer
+        }
+
+        a.project-card-link .project-card {
+            border-top-color: var(--cyan)
+        }
+
+        .view-project {
+            display: inline-block;
+            margin-top: 14px;
+            color: var(--cyan);
+            font-weight: 600;
+            font-size: .9rem;
+            letter-spacing: .3px;
+            transition: letter-spacing .3s
+        }
+
+        a.project-card-link:hover .view-project {
+            letter-spacing: 1px
+        }
+
+        /* EDUCATION */
         .education-list {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto
         }
 
         .education-item {
-            background: var(--bg-white);
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid var(--accent-color);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            padding: 24px 28px;
+            margin-bottom: 18px;
+            border-radius: 14px;
+            border-left: 3px solid var(--purple);
+            transition: all .3s
+        }
+
+        .education-item:hover {
+            background: var(--glass-hover);
+            border-left-color: var(--cyan);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .4)
         }
 
         .education-item h3 {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            font-weight: 600
+        }
+
+        .education-item h3 span {
+            color: var(--text-muted) !important;
+            -webkit-text-fill-color: var(--text-muted) !important
         }
 
         .education-item .institution {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+            color: var(--cyan);
+            font-size: 1rem;
             font-weight: 500;
+            opacity: .85
         }
 
-        /* Footer */
+        /* FOOTER */
         footer {
-            background: var(--text-primary);
-            color: white;
+            background: rgba(5, 9, 24, .9);
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
             text-align: center;
-            padding: 30px 0;
-            margin-top: 0;
+            padding: 36px 0;
+            position: relative;
+            z-index: 1
         }
 
         footer p {
-            opacity: 0.9;
+            opacity: .8;
+            font-size: .95rem
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        /* RESPONSIVE */
+        @media(max-width:768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem
             }
 
             header .subtitle {
-                font-size: 1.2rem;
+                font-size: 1rem
             }
 
             section h2 {
-                font-size: 2rem;
+                font-size: 1.8rem
             }
 
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav li {
-                margin: 10px 0;
+            nav a {
+                padding: 6px 12px;
+                font-size: .82rem
             }
 
             .expertise-grid,
             .projects-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr
             }
 
             .experience-timeline {
-                padding-left: 30px;
+                padding-left: 28px
+            }
+
+            .experience-item::before {
+                left: -35px
+            }
+
+            .summary-content {
+                padding: 24px
             }
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(30px)
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
 
         .fade-in {
-            animation: fadeInUp 0.6s ease-out;
+            animation: fadeInUp .7s ease-out both
         }
     </style>
 </head>
@@ -382,13 +566,13 @@
         <div class="container">
             <h1 class="fade-in">Aravind Krishnan B</h1>
             <p class="subtitle fade-in">AI Solution Architect</p>
-            <p class="tagline fade-in" style="font-size: 1.1rem; margin-top: 10px; margin-bottom: 20px;">
-                Bangalore, India | +91 7899 682201 | aravindk797@gmail.com | <a href="#"
-                    style="color: white; text-decoration: underline;">LinkedIn Profile</a>
+            <p class="tagline fade-in" style="font-size:1.1rem;margin-top:10px;margin-bottom:20px">
+                Bangalore, India | +91 7899 682201 | aravindk797@gmail.com | <a
+                    href="https://www.linkedin.com/in/aravind-krishnan-b-49173312b/">LinkedIn Profile</a>
             </p>
             <p class="tagline fade-in">
                 Bridging the gap between AI development and enterprise business by building
-                <strong>high-performance inference engines</strong> and deploying with <strong>scalability &
+                <strong>high-performance inference engines</strong> and deploying with <strong>scalability &amp;
                     security</strong>
             </p>
         </div>
@@ -410,12 +594,11 @@
         <div class="container">
             <h2>Professional Summary</h2>
             <div class="summary-content">
-                <p>
-                    Senior AI Solutions Architect with <strong>10+ years of experience</strong> in designing, coding,
-                    and deploying production-grade AI systems. Expert in Agentic Platform development, using multi-agent
+                <p>Senior AI Solutions Architect with <strong>10+ years of experience</strong> in designing, coding, and
+                    deploying production-grade AI systems. Expert in Agentic Platform development, using multi-agent
                     orchestration (LangGraph), and Model Context Protocol (MCP). Proven track record of bridging the gap
                     between AI development and enterprise business by building high-performance inference engines and
-                    deploying with scalability & security. Skilled in leading technical discovery with C-suite
+                    deploying with scalability &amp; security. Skilled in leading technical discovery with C-suite
                     stakeholders to translate business requirements into scalable cloud and hybrid-cloud architectures.
                 </p>
             </div>
@@ -428,34 +611,25 @@
             <div class="expertise-grid">
                 <div class="expertise-card">
                     <h3>🤖 Agentic AI Platform Development</h3>
-                    <p>
-                        LangGraph, Model Context Protocol (MCP), Databases, Security using OAuth, Scalability, Load
-                        balancing & Networking fundamentals.
-                    </p>
+                    <p>LangGraph, Model Context Protocol (MCP), Databases, Security using OAuth, Scalability, Load
+                        balancing &amp; Networking fundamentals.</p>
                 </div>
                 <div class="expertise-card">
-                    <h3>⚡ AI Frameworks & Optimization</h3>
-                    <p>
-                        PyTorch, TensorFlow, vLLM, SGLang, QLoRA, PEFT, TensorRT, CUDA.
-                    </p>
+                    <h3>⚡ AI Frameworks &amp; Optimization</h3>
+                    <p>PyTorch, TensorFlow, vLLM, SGLang, QLoRA, PEFT, TensorRT, CUDA.</p>
                 </div>
                 <div class="expertise-card">
-                    <h3>☁️ Cloud & MLOps</h3>
-                    <p>
-                        AWS Bedrock & Fargate, EC2 & Gateway, IBM Cloud, Kubernetes (K8s), OpenShift, Docker, CI/CD,
-                        Apache Airflow.
-                    </p>
+                    <h3>☁️ Cloud &amp; MLOps</h3>
+                    <p>AWS Bedrock &amp; Fargate, EC2 &amp; Gateway, IBM Cloud, Kubernetes (K8s), OpenShift, Docker,
+                        CI/CD, Apache Airflow.</p>
                 </div>
                 <div class="expertise-card">
-                    <h3>💻 Languages & Core Tech</h3>
-                    <p>
-                        Python, C++, REST APIs, OAuth-based authentication, SQL/NoSQL (MongoDB), Kafka, AmazonMQ.
-                    </p>
+                    <h3>💻 Languages &amp; Core Tech</h3>
+                    <p>Python, C++, REST APIs, OAuth-based authentication, SQL/NoSQL (MongoDB), Kafka, AmazonMQ.</p>
                 </div>
                 <div class="expertise-card">
-                    <h3>📊 Observability & Metrics</h3>
-                    <p>
-                        Prometheus, Model governance, Token/Latency Optimization, High-performance Evaluation Pipelines.
+                    <h3>📊 Observability &amp; Metrics</h3>
+                    <p>Prometheus, Model governance, Token/Latency Optimization, High-performance Evaluation Pipelines.
                     </p>
                 </div>
             </div>
@@ -470,18 +644,17 @@
                     <h3>AI Solution Architect</h3>
                     <p class="company">IBM | September 2023 – Present</p>
                     <ul>
-                        <li><strong>Multi-Agent platform for Partner & Sales consumption:</strong> Designed and
-                            developed a production grade AI Agentic platform which helps Partners & Customers get an
-                            experience of IBM Agentic landscape. Integrated Kafka and Redis microservices to handle
-                            real-time traffic management and granular tracing, the platform servers more than 5000 users
-                            world wide.</li>
+                        <li><strong>Multi-Agent platform for Partner &amp; Sales consumption:</strong> Designed and
+                            developed a production grade AI Agentic platform helping Partners &amp; Customers experience
+                            IBM's Agentic landscape. Integrated Kafka and Redis microservices for real-time traffic
+                            management and granular tracing, serving 5000+ users worldwide.</li>
                         <li><strong>Lead Developer for Agentic AI Workflows:</strong> Architected and coded an
                             autonomous solution for MongoDB administrative tasks utilizing LangGraph and MCP server
-                            integrations, enabling secure, tool-calling capabilities within enterprise perimeters.</li>
-                        <li><strong>Enterprise AI Infrastructure:</strong> Led the deployment of LLMs on Kubernetes GPU
+                            integrations, enabling secure tool-calling capabilities within enterprise perimeters.</li>
+                        <li><strong>Enterprise AI Infrastructure:</strong> Led deployment of LLMs on Kubernetes GPU
                             clusters, implementing custom governance layers and optimizing for LLM-native metrics
-                            (tokens/sec, latency, and cost-per-request).</li>
-                        <li><strong>Technical Discovery & Stakeholder Leadership:</strong> Conducted ROI-focused
+                            (tokens/sec, latency, cost-per-request).</li>
+                        <li><strong>Technical Discovery &amp; Stakeholder Leadership:</strong> Conducted ROI-focused
                             sessions with executive leadership to define hardware requirements and align AI roadmaps
                             with business goals.</li>
                     </ul>
@@ -505,7 +678,7 @@
                     <h3>Project Trainee</h3>
                     <p class="company">Robert Bosch | 2016 – 2017</p>
                     <ul>
-                        <li>Developed automated hardware validation and testing pipelines using Python & RTOS,
+                        <li>Developed automated hardware validation and testing pipelines using Python &amp; RTOS,
                             interfacing with ARM-based microcontrollers and BLE chips.</li>
                     </ul>
                 </div>
@@ -513,17 +686,43 @@
         </div>
     </section>
 
-    <!-- <section id="projects">
+    <section id="projects">
         <div class="container">
-            <h2>Key Projects & Technical Achievements</h2>
+            <h2>Key Projects &amp; Technical Achievements</h2>
             <div class="projects-grid" id="projects-grid">
-                <p id="projects-loading" style="text-align:center; color: var(--text-secondary); grid-column: 1/-1;">
-                    Loading projects...</p>
+                <a href="project-wingman.html" class="project-card-link">
+                    <div class="project-card">
+                        <h3>Personal AI Assistant - Project Wingman</h3>
+                        <p>A WhatsApp integrated AI personal assistant which can profile users, give curated responses
+                            to their queries and perform web searches to get latest information.</p>
+                        <span class="project-badge">Agentic AI Assistant on WhatsApp</span>
+                        <span class="view-project">View Project →</span>
+                    </div>
+                </a>
+                <div class="project-card">
+                    <h3>AI Agentic Platform</h3>
+                    <p>A flagship product focused on Agentic AI platform with multiple MCP integrations and focus
+                        on
+                        enterprise-scale deployment.</p>
+                    <span class="project-badge">Agentic AI Platform</span>
+                </div>
+                <div class="project-card">
+                    <h3>Industry grade Chatbot</h3>
+                    <p>Architected a microservices-based chatbots featuring clickstream analytics and Kafka integration
+                        to provide real-time insights for different industries like supply chain, IT etc.</p>
+                    <span class="project-badge">Microservices</span>
+                </div>
+                <div class="project-card">
+                    <h3>Multi-Threaded Inference Engines</h3>
+                    <p>Developed high-concurrency systems using C++ and Python to maximize throughput for large-scale AI
+                        deployments, achieving 3x performance improvement.</p>
+                    <span class="project-badge">High Performance</span>
+                </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
-    <section id="achievements" style="padding-top: 60px;">
+    <section id="achievements">
         <div class="container">
             <h2>Key Achievements</h2>
             <div class="expertise-grid">
@@ -556,15 +755,13 @@
             <h2>Education</h2>
             <div class="education-list">
                 <div class="education-item">
-                    <h3>M.Tech in Embedded Systems <span
-                            style="font-size: 0.9em; font-weight: normal; color: var(--text-secondary);">| CGPA:
+                    <h3>M.Tech in Embedded Systems <span style="font-size:.9em;font-weight:normal">| CGPA:
                             7.75/10.0</span></h3>
                     <p class="institution">Amrita Viswa Vidyapeetham</p>
                 </div>
                 <div class="education-item">
-                    <h3>B.Tech in Electronics & Communication <span
-                            style="font-size: 0.9em; font-weight: normal; color: var(--text-secondary);">| CGPA:
-                            7.57/10.0</span></h3>
+                    <h3>B.Tech in Electronics &amp; Communication <span style="font-size:.9em;font-weight:normal">|
+                            CGPA: 7.57/10.0</span></h3>
                     <p class="institution">Rajagiri School of Engineering</p>
                 </div>
             </div>
@@ -572,18 +769,18 @@
     </section>
 
     <section id="certifications">
-        <div class="container" style="padding-bottom: 60px;">
-            <h2>Certifications & Awards</h2>
+        <div class="container" style="padding-bottom:60px">
+            <h2>Certifications &amp; Awards</h2>
             <div class="education-list">
-                <div class="education-item" style="border-left-color: var(--primary-color);">
+                <div class="education-item">
                     <h3>RedHat OpenShift Administration</h3>
                     <p class="institution">Cloud-Native Orchestration</p>
                 </div>
-                <div class="education-item" style="border-left-color: var(--primary-color);">
+                <div class="education-item">
                     <h3>Awards</h3>
-                    <p class="institution">IBM Entrepreneur Award (2024) & Sony Valuable Partner Award (2022)</p>
+                    <p class="institution">IBM Entrepreneur Award (2024) &amp; Sony Valuable Partner Award (2022)</p>
                 </div>
-                <div class="education-item" style="border-left-color: var(--primary-color);">
+                <div class="education-item">
                     <h3>Speaking Engagement</h3>
                     <p class="institution">Gen AI Speaker at IIM Indore (Focus on Enterprise ROI and Agentic Workflows)
                     </p>
@@ -595,28 +792,18 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Aravind Krishnan B. All rights reserved.</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                Specializing in Generative AI, Agentic Systems, and Enterprise AI Solutions
-            </p>
+            <p style="margin-top:10px;font-size:.9rem">Specializing in Generative AI, Agentic Systems, and Enterprise AI
+                Solutions</p>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-
-        // Add fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -625,47 +812,14 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        // Apply fade-in to non-project elements immediately
-        document.querySelectorAll('.expertise-card, .education-item, .experience-item').forEach(el => {
+        document.querySelectorAll('.expertise-card, .education-item, .experience-item, .project-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
             observer.observe(el);
         });
-
-        // Fetch project cards from projects.html and inject them
-        fetch('projects.html')
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to load projects');
-                return response.text();
-            })
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const projectCards = doc.querySelectorAll('#projects-data .project-card');
-                const grid = document.getElementById('projects-grid');
-
-                // Remove loading message
-                const loading = document.getElementById('projects-loading');
-                if (loading) loading.remove();
-
-                // Inject each project card and apply scroll animation
-                projectCards.forEach(card => {
-                    const imported = document.importNode(card, true);
-                    imported.style.opacity = '0';
-                    imported.style.transform = 'translateY(30px)';
-                    imported.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-                    grid.appendChild(imported);
-                    observer.observe(imported);
-                });
-            })
-            .catch(err => {
-                console.error('Error loading projects:', err);
-                const grid = document.getElementById('projects-grid');
-                grid.innerHTML = '<p style="text-align:center; color:#ef4444; grid-column:1/-1;">Failed to load projects. Please try again later.</p>';
-            });
     </script>
 </body>
 
