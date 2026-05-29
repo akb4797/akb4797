@@ -255,6 +255,12 @@
             color: #a7f3d0
         }
 
+        .status-banner .phone-number {
+            font-size: 2.2rem;
+            display: block;
+            margin-top: 8px;
+        }
+
         /* FEATURE CARDS */
         .features-grid {
             display: grid;
@@ -564,7 +570,8 @@
             </p>
             <div class="status-banner">
                 <strong>🟢 Active &amp; In Production</strong><br>
-                Currently serving personalized AI interactions via WhatsApp
+                Try pinging in Whatsapp
+                <strong class="phone-number"> +91 7899 505676</strong>
             </div>
         </div>
     </section>
@@ -621,11 +628,11 @@
                 <div class="arch-arrow">→</div>
                 <div class="arch-node">🔗 Webhook<span>Express.js API</span></div>
                 <div class="arch-arrow">→</div>
-                <div class="arch-node">🧠 LangGraph<span>State Router</span></div>
+                <div class="arch-node">🧠 Langgraph<span>Memory, Tool call</span></div>
                 <div class="arch-arrow">→</div>
-                <div class="arch-node">🤖 LLM Agent<span>Tool Calling</span></div>
+                <div class="arch-node">🤖 LLM Agent<span>Groq inference, Gemini inference</span></div>
                 <div class="arch-arrow">→</div>
-                <div class="arch-node">💾 Database<span>Profile &amp; Memory</span></div>
+                <div class="arch-node">💾 Database<span>Graph DB, Vector DB, Relational DB</span></div>
             </div>
         </div>
     </section>
@@ -637,36 +644,39 @@
                 <div class="tech-category">
                     <h3>🤖 AI &amp; Agents</h3>
                     <div class="tech-tags">
-                        <span class="tech-tag">LangGraph</span>
-                        <span class="tech-tag">Gemini</span>
+                        <span class="tech-tag">Langgraph</span>
                         <span class="tech-tag">Groq</span>
-                        <span class="tech-tag">Tool Calling</span>
+                        <span class="tech-tag">Gemini API</span>
                     </div>
                 </div>
                 <div class="tech-category">
                     <h3>🔧 Backend</h3>
                     <div class="tech-tags">
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Express.js</span>
+                        <span class="tech-tag">AWS EC2</span>
+                        <span class="tech-tag">Nginx</span>
+                        <span class="tech-tag">Networking fundamentals</span>
                         <span class="tech-tag">REST APIs</span>
+                        <span class="tech-tag">Node.js</span>
                         <span class="tech-tag">Webhooks</span>
                     </div>
                 </div>
                 <div class="tech-category">
                     <h3>💾 Data &amp; Memory</h3>
                     <div class="tech-tags">
-                        <span class="tech-tag">Supabase</span>
-                        <span class="tech-tag">Pinecone</span>
-                        <span class="tech-tag">Vector DB</span>
-                        <span class="tech-tag">Multi-Tenant</span>
+                        <span class="tech-tag">Pinecone (VectorDB)</span>
+                        <span class="tech-tag">Supabase (RDMS)</span>
+                        <span class="tech-tag">Neo4J (GraphDB)</span>
+                        <span class="tech-tag">Redis cache</span>
+                        <span class="tech-tag">Kafka streaming</span>
                     </div>
                 </div>
                 <div class="tech-category">
                     <h3>📡 Integration</h3>
                     <div class="tech-tags">
-                        <span class="tech-tag">WhatsApp API</span>
-                        <span class="tech-tag">Web Search</span>
-                        <span class="tech-tag">Cloud Deploy</span>
+                        <span class="tech-tag">Meta developer</span>
+                        <span class="tech-tag">Web search</span>
+                        <span class="tech-tag">Tom-Tom traffic</span>
+                        <span class="tech-tag">Beckn protocol (upcoming)</span>
                     </div>
                 </div>
             </div>
@@ -679,12 +689,12 @@
             <ul class="highlights-list">
                 <li>Multi-agent orchestration using <strong>LangGraph StateGraph</strong> with conditional routing for
                     profile-aware conversations</li>
-                <li>Proactive <strong>user data extraction</strong> and onboarding flow that learns user preferences
-                    over natural conversation</li>
+                <li>Responses <strong> tailor built </strong> for users. </li>
                 <li><strong>Vector-based memory retrieval</strong> using Pinecone with multi-tenant namespace isolation
                     for per-user context</li>
                 <li>Real-time <strong>web search integration</strong> as a tool-callable agent action for up-to-date
-                    information</li>
+                    <strong> Traffic information</strong>
+                </li>
                 <li>Persistent <strong>conversation state management</strong> using MemorySaver for seamless multi-turn
                     interactions</li>
                 <li>Webhook-driven architecture for <strong>low-latency WhatsApp message processing</strong> and
