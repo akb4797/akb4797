@@ -636,6 +636,37 @@
     </section>
 
     <section class="project-section">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Embedded S3 Video</title>
+        <style>
+            /* Optional: Makes the video responsive to screen sizes */
+            .video-container {
+                max-width: 400px;
+                margin: 20px auto;
+                width: 100%;
+            }
+
+            video {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+        <div class="video-container">
+            <video controls preload="metadata" poster="https://d1rn885jiawmj9.cloudfront.net/thumbnail.png">
+                <source src="https://d1rn885jiawmj9.cloudfront.net/wingman_profile_mp4.MP4" type="video/mp4">
+
+                Your browser does not support the video tag or the file format.
+            </video>
+        </div>
+
+    </section>
+
+
+
+    <section class="project-section">
         <div class="container">
             <h2>Architecture</h2>
             <div class="architecture-flow">
@@ -648,6 +679,8 @@
                 <div class="arch-node">🤖 LLM Agent<span>Groq inference, Gemini inference</span></div>
                 <div class="arch-arrow">→</div>
                 <div class="arch-node">💾 Database<span>Graph DB, Vector DB, Relational DB</span></div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-node">⚡ Content Delivery Network <span> AWS Cloudfront, S3</span></div>
             </div>
         </div>
     </section>
@@ -662,17 +695,22 @@
                         <span class="tech-tag">Langgraph</span>
                         <span class="tech-tag">Groq</span>
                         <span class="tech-tag">Gemini API</span>
+                        <span class="tech-tag">Tool calling</span>
+                        <span class="tech-tag">Context Engineering</span>
                     </div>
                 </div>
                 <div class="tech-category">
                     <h3>🔧 Backend</h3>
                     <div class="tech-tags">
                         <span class="tech-tag">AWS EC2</span>
-                        <span class="tech-tag">Nginx</span>
-                        <span class="tech-tag">Networking fundamentals</span>
+                        <span class="tech-tag">DNS routing & WAF</span>
                         <span class="tech-tag">REST APIs</span>
                         <span class="tech-tag">Node.js</span>
                         <span class="tech-tag">Webhooks</span>
+                        <span class="tech-tag">AWS Cloudfront</span>
+                        <span class="tech-tag">AWS S3</span>
+                        <span class="tech-tag">Nginx</span>
+
                     </div>
                 </div>
                 <div class="tech-category">
