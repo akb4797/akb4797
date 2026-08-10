@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aravind Krishnan B — AI Solution Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ink:#0a0d13;
+    --panel:#0e131c;
+    --panel-2:#111826;
+    --line: rgba(148,163,184,.14);
+    --line-soft: rgba(148,163,184,.07);
+    --grid-dot: rgba(94,234,212,.09);
+    --trace:#5eead4;
+    --trace-dim: rgba(94,234,212,.35);
+    --signal:#ffb020;
+    --signal-dim: rgba(255,176,32,.35);
+    --text:#e7ecf3;
+    --text-dim:#8b96a8;
+    --text-faint:#57647a;
+    --radius: 3px;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important}
+  }
+
+  body{
+    font-family:var(--sans);
+    background:var(--ink);
+    color:var(--text);
+    line-height:1.6;
+    font-weight:300;
+    position:relative;
+  }
+
+  /* faint blueprint dot grid */
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 20%, black 40%, transparent 90%);
+  }
+  /* corner frame ticks — fixed blueprint registration marks */
+  .frame-tick{position:fixed; z-index:50; width:22px; height:22px; pointer-events:none; opacity:.55}
+  .frame-tick svg{width:100%; height:100%}
+  .frame-tick.tl{top:14px; left:14px}
+  .frame-tick.tr{top:14px; right:14px; transform:scaleX(-1)}
+  .frame-tick.bl{bottom:14px; left:14px; transform:scaleY(-1)}
+  .frame-tick.br{bottom:14px; right:14px; transform:scale(-1,-1)}
+  .frame-stamp{
+    position:fixed; z-index:50; bottom:16px; right:44px;
+    font-family:var(--mono); font-size:.62rem; letter-spacing:.08em;
+    color:var(--text-faint); pointer-events:none;
+  }
+  @media (max-width:768px){ .frame-tick,.frame-stamp{display:none} }
+
+  .container{max-width:1180px; margin:0 auto; padding:0 24px; position:relative; z-index:1}
+
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--signal); outline-offset:3px}
+
+  /* ============ REF LABEL / SECTION HEADS ============ */
+  .ref{
+    display:inline-block; font-family:var(--mono); font-size:.72rem;
+    letter-spacing:.24em; color:var(--signal); font-weight:500;
+    margin-bottom:14px;
+  }
+  .ref::before{content:'§ '}
+  .ref::after{content:' ———'; color:var(--text-faint)}
+
+  section{padding:96px 0; position:relative; z-index:1; border-top:1px solid var(--line-soft)}
+  section:first-of-type{border-top:none}
+
+  .section-head{max-width:640px; margin:0 auto 54px}
+  .section-head h2{
+    font-family:var(--mono); font-weight:600;
+    font-size:clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+    letter-spacing:-.01em; color:var(--text);
+  }
+
+  /* ============ HEADER / HERO ============ */
+  header{padding:120px 0 40px; position:relative; z-index:1}
+  .eyebrow{
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.3em;
+    color:var(--trace); text-transform:uppercase; margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width:8px; height:8px; background:var(--signal); border-radius:50%;
+    box-shadow:0 0 0 3px rgba(255,176,32,.15);
+    animation: blink 2.2s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+
+  header h1{
+    font-family:var(--mono); font-weight:700;
+    font-size:clamp(2.2rem, 1.4rem + 4vw, 4.1rem);
+    letter-spacing:-.02em; color:var(--text); line-height:1.05;
+    max-width:820px;
+  }
+  header h1 .accent{color:var(--trace)}
+
+  .role-tag{
+    font-family:var(--mono); font-size:.85rem; letter-spacing:.05em;
+    color:var(--text-dim); margin-top:18px; padding-top:18px;
+    border-top:1px dashed var(--line); max-width:820px;
+  }
+  .role-tag b{color:var(--signal); font-weight:600}
+
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:6px 0; margin-top:26px;
+    font-family:var(--mono); font-size:.82rem; color:var(--text-dim);
+  }
+  .meta-row span{padding-right:16px; margin-right:16px; border-right:1px solid var(--line)}
+  .meta-row span:last-child{border-right:none}
+  .meta-row a{color:var(--trace); text-decoration:none; border-bottom:1px solid var(--trace-dim)}
+  .meta-row a:hover{color:var(--signal); border-color:var(--signal-dim)}
+
+  header .tagline{
+    font-size:1.05rem; color:var(--text-dim); max-width:660px;
+    margin-top:30px; line-height:1.85; font-weight:300;
+  }
+  header .tagline strong{color:var(--text); font-weight:500}
+
+  /* ---- system graph signature element ---- */
+  .graph-wrap{margin-top:64px; position:relative}
+  .graph-wrap svg{width:100%; height:auto; display:block}
+  .graph-caption{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.15em;
+    color:var(--text-faint); text-align:center; margin-top:10px;
+  }
+
+  /* ============ NAV ============ */
+  nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,13,19,.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  nav ul{
+    list-style:none; display:flex; justify-content:center; flex-wrap:wrap;
+    padding:0; gap:0;
+  }
+  nav a{
+    font-family:var(--mono); color:var(--text-dim); text-decoration:none;
+    font-size:.76rem; letter-spacing:.1em; text-transform:uppercase;
+    padding:16px 18px; display:inline-block; position:relative; transition:color .2s;
+  }
+  nav a::after{
+    content:''; position:absolute; left:18px; right:18px; bottom:0; height:2px;
+    background:var(--signal); transform:scaleX(0); transform-origin:left;
+    transition:transform .25s ease;
+  }
+  nav a:hover{color:var(--text)}
+  nav a:hover::after{transform:scaleX(1)}
+
+  /* ============ SUMMARY ============ */
+  .summary-panel{
+    max-width:820px; margin:0 auto; position:relative;
+    background:var(--panel); border:1px solid var(--line);
+    padding:40px 44px;
+  }
+  .summary-panel::before,.summary-panel::after{
+    content:''; position:absolute; width:14px; height:14px;
+    border:1.5px solid var(--trace-dim);
+  }
+  .summary-panel::before{top:-1px; left:-1px; border-right:none; border-bottom:none}
+  .summary-panel::after{bottom:-1px; right:-1px; border-left:none; border-top:none}
+  .summary-panel p{font-size:1.05rem; color:var(--text-dim); line-height:1.95}
+  .summary-panel strong{color:var(--trace); font-weight:500}
+
+  /* ============ SKILLS / STACK ============ */
+  .stack-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+  .ic-card{background:var(--panel); padding:28px 26px; transition:background .25s}
+  .ic-card:hover{background:var(--panel-2)}
+  .ic-tag{
+    font-family:var(--mono); font-size:.72rem; color:var(--signal); letter-spacing:.1em;
+    display:block; margin-bottom:10px;
+  }
+  .ic-card h3{font-size:1.02rem; font-weight:500; color:var(--text); margin-bottom:12px; letter-spacing:-.01em}
+  .ic-card p{color:var(--text-dim); font-size:.92rem; line-height:1.75}
+
+  /* ============ EXPERIENCE TIMELINE ============ */
+  .timeline{max-width:820px; margin:0 auto; position:relative; padding-left:38px}
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background:repeating-linear-gradient(var(--trace-dim) 0 6px, transparent 6px 11px);
+  }
+  .tl-item{position:relative; margin-bottom:48px; background:var(--panel); border:1px solid var(--line); padding:26px 30px}
+  .tl-item:last-child{margin-bottom:0}
+  .tl-item::before{
+    content:''; position:absolute; left:-38px; top:30px; width:11px; height:11px;
+    background:var(--ink); border:2px solid var(--trace); border-radius:50%;
+  }
+  .tl-item.current::before{border-color:var(--signal); box-shadow:0 0 0 4px rgba(255,176,32,.14)}
+  .tl-item h3{font-size:1.25rem; font-weight:500; color:var(--text); margin-bottom:4px}
+  .tl-item .company{
+    font-family:var(--mono); font-size:.82rem; color:var(--trace); letter-spacing:.03em;
+    margin-bottom:18px; display:block;
+  }
+  .tl-item ul{list-style:none}
+  .tl-item li{position:relative; padding-left:20px; margin-bottom:11px; color:var(--text-dim); font-size:.94rem; line-height:1.75}
+  .tl-item li::before{content:'›'; position:absolute; left:0; color:var(--signal); font-family:var(--mono)}
+  .tl-item li strong{color:var(--text); font-weight:500}
+
+  /* ============ PROJECTS ============ */
+  .proj-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(290px,1fr)); gap:22px}
+  .proj-card{
+    background:var(--panel); border:1px solid var(--line); padding:28px;
+    display:flex; flex-direction:column; position:relative; transition:border-color .25s, transform .25s;
+  }
+  .proj-card::before,.proj-card::after{
+    content:''; position:absolute; width:12px; height:12px; border:1.5px solid var(--text-faint); transition:border-color .25s;
+  }
+  .proj-card::before{top:-1px; left:-1px; border-right:none; border-bottom:none}
+  .proj-card::after{bottom:-1px; right:-1px; border-left:none; border-top:none}
+  .proj-card:hover{border-color:var(--trace-dim); transform:translateY(-3px)}
+  .proj-card:hover::before,.proj-card:hover::after{border-color:var(--trace)}
+  .proj-card h3{font-size:1.08rem; font-weight:500; color:var(--text); margin-bottom:12px}
+  .proj-card p{color:var(--text-dim); font-size:.92rem; line-height:1.75; flex:1}
+  .pn-tag{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; color:var(--trace);
+    border:1px solid var(--trace-dim); padding:4px 10px; display:inline-block; margin-top:16px; width:fit-content;
+  }
+  a.proj-link{text-decoration:none; display:block; cursor:pointer}
+  .view-project{
+    display:inline-flex; align-items:center; gap:6px; margin-top:14px;
+    font-family:var(--mono); color:var(--signal); font-weight:500; font-size:.8rem; letter-spacing:.05em;
+    transition:gap .2s;
+  }
+  a.proj-link:hover .view-project{gap:10px}
+
+  /* ============ ACHIEVEMENTS (NOTES) ============ */
+  .notes-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+  .note-card{background:var(--panel); padding:28px 26px}
+  .note-tag{font-family:var(--mono); font-size:.72rem; color:var(--signal); letter-spacing:.1em; display:block; margin-bottom:10px}
+  .note-card h3{font-size:1.02rem; font-weight:500; margin-bottom:10px}
+  .note-card p{color:var(--text-dim); font-size:.92rem; line-height:1.75}
+
+  /* ============ SPEC LIST (education / certifications) ============ */
+  .spec-list{max-width:800px; margin:0 auto}
+  .spec-row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+    padding:20px 4px; border-bottom:1px solid var(--line);
+  }
+  .spec-row:first-child{border-top:1px solid var(--line)}
+  .spec-left h3{font-size:1.05rem; font-weight:500; color:var(--text)}
+  .spec-left .sub{font-family:var(--mono); font-size:.78rem; color:var(--text-faint); margin-top:4px; display:block}
+  .spec-right{
+    font-family:var(--mono); font-size:.85rem; color:var(--trace); white-space:nowrap; text-align:right;
+  }
+
+  /* ============ FOOTER ============ */
+  footer{border-top:1px solid var(--line); padding:44px 0; position:relative; z-index:1}
+  footer .container{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; align-items:center}
+  footer p{font-family:var(--mono); font-size:.76rem; color:var(--text-faint); letter-spacing:.04em}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:768px){
+    header{padding:90px 0 30px}
+    section{padding:64px 0}
+    .timeline{padding-left:26px}
+    .tl-item::before{left:-26px}
+    .summary-panel{padding:28px 24px}
+    nav a{padding:12px 12px; font-size:.7rem}
+    .spec-row{flex-direction:column; align-items:flex-start}
+    .spec-right{text-align:left}
+  }
+</style>
+</head>
+<body>
+
+  <div class="frame-tick tl" aria-hidden="true"><svg viewBox="0 0 22 22"><path d="M0 22 L0 0 L22 0" stroke="#5eead4" stroke-width="1.5" fill="none"/></svg></div>
+  <div class="frame-tick tr" aria-hidden="true"><svg viewBox="0 0 22 22"><path d="M0 22 L0 0 L22 0" stroke="#5eead4" stroke-width="1.5" fill="none"/></svg></div>
+  <div class="frame-tick bl" aria-hidden="true"><svg viewBox="0 0 22 22"><path d="M0 22 L0 0 L22 0" stroke="#5eead4" stroke-width="1.5" fill="none"/></svg></div>
+  <div class="frame-tick br" aria-hidden="true"><svg viewBox="0 0 22 22"><path d="M0 22 L0 0 L22 0" stroke="#5eead4" stroke-width="1.5" fill="none"/></svg></div>
+  <div class="frame-stamp" aria-hidden="true">AKB · BLR-IN · REV 2026.08</div>
+
+  <header>
+    <div class="container">
+      <p class="eyebrow">Available for new engagements</p>
+      <h1>Aravind Krishnan B — building the <span class="accent">edge-to-agent</span> stack</h1>
+      <p class="role-tag"><b>AI Solution Architect</b> · Agentic Systems · Edge Inference · Enterprise Deployment</p>
+
+      <div class="meta-row">
+        <span>Bangalore, India</span>
+        <span>+91 7899 682201</span>
+        <span>aravindk797@gmail.com</span>
+        <span><a href="https://www.linkedin.com/in/aravind-krishnan-b-49173312b/">LinkedIn ↗</a></span>
+      </div>
+
+      <p class="tagline">
+        Bridging the gap between AI development and enterprise business by building
+        <strong>high-performance inference engines</strong> and deploying them with
+        <strong>scalability &amp; security</strong> — from silicon to multi-agent cloud platforms.
+      </p>
+
+      <div class="graph-wrap">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing four practice areas — edge inference, agent orchestration, security and governance, cloud and MLOps — connected to a central architecture node.">
+          <!-- traces -->
+          <path d="M400,170 L200,170 L200,55 L120,55" fill="none" stroke="#233042" stroke-width="1.5"/>
+          <path d="M400,170 L600,170 L600,55 L680,55" fill="none" stroke="#233042" stroke-width="1.5"/>
+          <path d="M400,170 L240,170 L240,275 L120,275" fill="none" stroke="#233042" stroke-width="1.5"/>
+          <path d="M400,170 L560,170 L560,275 L680,275" fill="none" stroke="#233042" stroke-width="1.5"/>
+
+          <!-- animated signal dots -->
+          <circle r="3.2" fill="#ffb020" class="pulse-dot">
+            <animateMotion dur="3.2s" repeatCount="indefinite" path="M400,170 L200,170 L200,55 L120,55"/>
+          </circle>
+          <circle r="3.2" fill="#5eead4" class="pulse-dot">
+            <animateMotion dur="3.6s" repeatCount="indefinite" path="M400,170 L600,170 L600,55 L680,55"/>
+          </circle>
+          <circle r="3.2" fill="#5eead4" class="pulse-dot">
+            <animateMotion dur="4s" repeatCount="indefinite" path="M400,170 L240,170 L240,275 L120,275"/>
+          </circle>
+          <circle r="3.2" fill="#ffb020" class="pulse-dot">
+            <animateMotion dur="3.8s" repeatCount="indefinite" path="M400,170 L560,170 L560,275 L680,275"/>
+          </circle>
+
+          <!-- satellite nodes -->
+          <g font-family="IBM Plex Mono, monospace">
+            <rect x="30" y="38" width="180" height="34" fill="#0e131c" stroke="#5eead4" stroke-opacity=".5"/>
+            <text x="120" y="59" fill="#c9d3e0" font-size="11" text-anchor="middle" letter-spacing="1">EDGE INFERENCE</text>
+
+            <rect x="590" y="38" width="180" height="34" fill="#0e131c" stroke="#5eead4" stroke-opacity=".5"/>
+            <text x="680" y="59" fill="#c9d3e0" font-size="11" text-anchor="middle" letter-spacing="1">AGENT ORCHESTRATION</text>
+
+            <rect x="30" y="258" width="180" height="34" fill="#0e131c" stroke="#5eead4" stroke-opacity=".5"/>
+            <text x="120" y="279" fill="#c9d3e0" font-size="11" text-anchor="middle" letter-spacing="1">SECURITY &amp; GOVERNANCE</text>
+
+            <rect x="590" y="258" width="180" height="34" fill="#0e131c" stroke="#5eead4" stroke-opacity=".5"/>
+            <text x="680" y="279" fill="#c9d3e0" font-size="11" text-anchor="middle" letter-spacing="1">CLOUD &amp; MLOPS</text>
+          </g>
+
+          <!-- center hub -->
+          <rect x="340" y="150" width="120" height="40" fill="#111826" stroke="#ffb020" stroke-width="1.5"/>
+          <text x="400" y="175" fill="#ffb020" font-size="13" font-weight="600" text-anchor="middle" font-family="IBM Plex Mono, monospace" letter-spacing="1">AKB</text>
+        </svg>
+        <p class="graph-caption">SYSTEM MAP — PRACTICE AREAS ROUTED THROUGH ONE ARCHITECTURE PRACTICE</p>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#expertise">Stack</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Notes</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+    </ul>
+  </nav>
+
+  <section id="summary">
+    <div class="container">
+      <div class="section-head">
+        <span class="ref">01 SUMMARY</span>
+        <h2>Professional Summary</h2>
+      </div>
+      <div class="summary-panel">
+        <p>Senior AI Solutions Architect with <strong>10+ years of experience</strong> designing, coding, and
+          deploying production-grade AI systems. Expert in agentic platform development, using multi-agent
+          orchestration (LangGraph) and the Model Context Protocol (MCP). Proven track record of bridging AI
+          development and enterprise business by building high-performance inference engines and deploying them
+          with scalability &amp; security. Skilled in leading technical discovery with C-suite stakeholders to
+          translate business requirements into scalable cloud and hybrid-cloud architectures.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="expertise">
+    <div class="container">
+      <div class="section-head">
+        <span class="ref">02 STACK</span>
+        <h2>Technical Skills</h2>
+      </div>
+      <div class="stack-grid">
+        <div class="ic-card">
+          <span class="ic-tag">IC.01</span>
+          <h3>Agentic AI Platform Development</h3>
+          <p>LangGraph, Model Context Protocol (MCP), databases, security via OAuth, scalability, load
+            balancing &amp; networking fundamentals.</p>
+        </div>
+        <div class="ic-card">
+          <span class="ic-tag">IC.02</span>
+          <h3>AI Frameworks &amp; Optimization</h3>
+          <p>PyTorch, TensorFlow, vLLM, SGLang, QLoRA, PEFT, TensorRT, CUDA.</p>
+        </div>
+        <div class="ic-card">
+          <span class="ic-tag">IC.03</span>
+          <h3>Cloud &amp; MLOps</h3>
+          <p>AWS Bedrock &amp; Fargate, EC2 &amp; Gateway, IBM Cloud, Kubernetes (K8s), OpenShift, Docker,
+            CI/CD, Apache Airflow.</p>
+        </div>
+        <div class="ic-card">
+          <span class="ic-tag">IC.04</span>
+          <h3>Languages &amp; Core Tech</h3>
+          <p>Python, C++, REST APIs, OAuth-based authentication, SQL/NoSQL (MongoDB), Kafka, AmazonMQ.</p>
+        </div>
+        <div class="ic-card">
+          <span class="ic-tag">IC.05</span>
+          <h3>Observability &amp; Metrics</h3>
+          <p>Prometheus, model governance, token/latency optimization, high-performance evaluation pipelines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="section-head">
+        <span class="ref">03 EXPERIENCE</span>
+        <h2>Professional Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item current">
+          <h3>AI Solution Architect</h3>
+          <span class="company">IBM — September 2023 – Present</span>
+          <ul>
+            <li><strong>Multi-agent platform for Partner &amp; Sales consumption:</strong> designed and
+              developed a production-grade agentic platform helping partners and customers experience IBM's
+              agentic landscape, integrating Kafka and Redis microservices for real-time traffic management and
+              granular tracing, serving 5,000+ users worldwide.</li>
+            <li><strong>Lead developer for agentic AI workflows:</strong> architected and coded an autonomous
+              solution for MongoDB administrative tasks using LangGraph and MCP server integrations, enabling
+              secure tool-calling within enterprise perimeters.</li>
+            <li><strong>Enterprise AI infrastructure:</strong> led deployment of LLMs on Kubernetes GPU clusters,
+              implementing custom governance layers and optimizing for LLM-native metrics (tokens/sec, latency,
+              cost-per-request).</li>
+            <li><strong>Technical discovery &amp; stakeholder leadership:</strong> conducted ROI-focused sessions
+              with executive leadership to define hardware requirements and align AI roadmaps with business
+              goals.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <h3>Technical Lead</h3>
+          <span class="company">Sony India Software Centre — February 2017 – September 2023</span>
+          <ul>
+            <li><strong>High-performance inference engines:</strong> designed and optimized deep learning
+              matting architectures; implemented a C++ multithreaded inference engine with custom CUDA kernels,
+              achieving significant throughput improvements on NVIDIA and Qualcomm hardware.</li>
+            <li><strong>Edge AI sensing platform (AITRIOS):</strong> developed connective-tissue modules for a
+              cloud-based AI training platform, enabling seamless model transition from training to edge
+              deployment (TensorRT/TFLite).</li>
+            <li><strong>Full-stack computer vision:</strong> architected end-to-end ALPR systems for proprietary
+              sensors, managing the full stack from firmware-level optimization to cloud-based data silos.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <h3>Project Trainee</h3>
+          <span class="company">Robert Bosch — 2016 – 2017</span>
+          <ul>
+            <li>Developed automated hardware validation and testing pipelines using Python &amp; RTOS,
+              interfacing with ARM-based microcontrollers and BLE chips.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <span class="ref">04 PROJECTS</span>
+        <h2>Key Projects &amp; Technical Achievements</h2>
+      </div>
+      <div class="proj-grid">
+        <a href="project-wingman.html" class="proj-link">
+          <div class="proj-card">
+            <h3>Personal AI Assistant — Project Wingman</h3>
+            <p>A WhatsApp-integrated AI personal assistant that profiles users, gives curated responses to their
+              queries, and performs web searches to surface the latest information.</p>
+            <span class="pn-tag">PN-001 · AGENTIC ASSISTANT / WHATSAPP</span>
+            <span class="view-project">View project →</span>
+          </div>
+        </a>
+        <div class="proj-card">
+          <h3>AI Agentic Platform</h3>
+          <p>A flagship product focused on an agentic AI platform with multiple MCP integrations and a focus on
+            enterprise-scale deployment.</p>
+          <span class="pn-tag">PN-002 · AGENTIC PLATFORM</span>
+        </div>
+        <div class="proj-card">
+          <h3>Industry-Grade Chatbot</h3>
+          <p>Architected microservices-based chatbots featuring clickstream analytics and Kafka integration to
+            provide real-time insights for industries like supply chain and IT.</p>
+          <span class="pn-tag">PN-003 · MICROSERVICES</span>
+        </div>
+        <div class="proj-card">
+          <h3>Multi-Threaded Inference Engines</h3>
+          <p>Developed high-concurrency systems in C++ and Python to maximize throughput for large-scale AI
+            deployments, achieving a 3x performance improvement.</p>
+          <span class="pn-tag">PN-004 · HIGH PERFORMANCE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <div class="container">
+      <div class="section-head">
+        <span class="ref">05 NOTES</span>
+        <h2>Key Achievements</h2>
+      </div>
+      <div class="notes-grid">
+        <div class="note-card">
+          <span class="note-tag">NOTE 01</span>
+          <h3>Builder-Consultant Impact</h3>
+          <p>Successfully transitioned 5+ high-priority AI prototypes into production-grade environments with
+            measurable ROI.</p>
+        </div>
+        <div class="note-card">
+          <span class="note-tag">NOTE 02</span>
+          <h3>Hardware–Software Synergy</h3>
+          <p>Deep expertise in optimizing frontier models for specific silicon accelerators (NVIDIA Jetson,
+            Qualcomm Snapdragon).</p>
+        </div>
+        <div class="note-card">
+          <span class="note-tag">NOTE 03</span>
+          <h3>Secure Integrations</h3>
+          <p>Implemented OAuth-based authentication and secure tool-calling schemas for agentic workflows in
+            highly regulated environments.</p>
+        </div>
+        <div class="note-card">
+          <span class="note-tag">NOTE 04</span>
+          <h3>Public Advocacy</h3>
+          <p>Featured GenAI speaker at IIM Indore, discussing the intersection of enterprise security and
+            generative AI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="container">
+      <div class="section-head">
+        <span class="ref">06 EDUCATION</span>
+        <h2>Education</h2>
+      </div>
+      <div class="spec-list">
+        <div class="spec-row">
+          <div class="spec-left">
+            <h3>M.Tech in Embedded Systems</h3>
+            <span class="sub">Amrita Vishwa Vidyapeetham</span>
+          </div>
+          <div class="spec-right">CGPA 7.75 / 10.0</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-left">
+            <h3>B.Tech in Electronics &amp; Communication</h3>
+            <span class="sub">Rajagiri School of Engineering</span>
+          </div>
+          <div class="spec-right">CGPA 7.57 / 10.0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <div class="container" style="padding-bottom:40px">
+      <div class="section-head">
+        <span class="ref">07 CERTIFICATIONS</span>
+        <h2>Certifications &amp; Awards</h2>
+      </div>
+      <div class="spec-list">
+        <div class="spec-row">
+          <div class="spec-left">
+            <h3>RedHat OpenShift Administration</h3>
+            <span class="sub">Cloud-native orchestration</span>
+          </div>
+          <div class="spec-right">CERT</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-left">
+            <h3>IBM Entrepreneur Award &amp; Sony Valuable Partner Award</h3>
+            <span class="sub">2024 · 2022</span>
+          </div>
+          <div class="spec-right">AWARD</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-left">
+            <h3>Gen AI Speaker, IIM Indore</h3>
+            <span class="sub">Enterprise ROI &amp; agentic workflows</span>
+          </div>
+          <div class="spec-right">TALK</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Aravind Krishnan B — All rights reserved.</p>
+      <p>Generative AI · Agentic Systems · Enterprise AI Solutions</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealTargets = document.querySelectorAll('.ic-card, .spec-row, .tl-item, .proj-card, .note-card');
+    if(!reduceMotion){
+      revealTargets.forEach(el=>{
+        el.style.opacity='0';
+        el.style.transform='translateY(16px)';
+        el.style.transition='opacity .5s ease-out, transform .5s ease-out';
+      });
+      const io = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.style.opacity='1';
+            entry.target.style.transform='translateY(0)';
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+      revealTargets.forEach(el=>io.observe(el));
+    }
+  </script>
+</body>
+</html>
